@@ -33,30 +33,20 @@ const fs_1 = __webpack_require__(747);
 function run() {
     try {
         const interpreter = core.getInput('interpreter');
-        const packages = core.getInput('packages');
+        const file = core.getInput('file');
         const script = core.getInput('script');
-        const nixWrapperPath = `${__dirname}/wrapper.sh`;
         const scriptPath = `${__dirname}/script.sh`;
-        const wrappedPackages = packages
-            .split(',')
-            .map(pkg => `nixpkgs.${pkg.trim()}`)
-            .join(' ');
-        const nixWrapper = `
-set -euo pipefail
-
-echo ${wrappedPackages}
-nix run ${wrappedPackages} -c ${interpreter} ${scriptPath}
-      `;
         const wrappedScript = `
-set -euo pipefail
+#!/usr/bin/env nix-shell
+#!nix-shell ${file} -i ${interpreter}
 
+set -eu
 ${script}
    `;
-        fs_1.writeFileSync(nixWrapperPath, nixWrapper, { mode: 0o755 });
         fs_1.writeFileSync(scriptPath, wrappedScript, { mode: 0o755 });
-        child_process_1.execFileSync(nixWrapperPath, {
+        child_process_1.execFileSync(scriptPath, {
             stdio: 'inherit',
-            shell: 'bash'
+            shell: false
         });
     }
     catch (error) {

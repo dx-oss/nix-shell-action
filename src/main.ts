@@ -5,35 +5,22 @@ import {writeFileSync} from 'fs'
 function run(): void {
   try {
     const interpreter: string = core.getInput('interpreter')
-    const packages: string = core.getInput('packages')
+    const file: string = core.getInput('file')
     const script: string = core.getInput('script')
-
-    const nixWrapperPath = `${__dirname}/wrapper.sh`
     const scriptPath = `${__dirname}/script.sh`
 
-    const wrappedPackages = packages
-      .split(',')
-      .map(pkg => `nixpkgs.${pkg.trim()}`)
-      .join(' ')
-
-    const nixWrapper = `
-set -euo pipefail
-
-echo ${wrappedPackages}
-nix run ${wrappedPackages} -c ${interpreter} ${scriptPath}
-      `
-
     const wrappedScript = `
-set -euo pipefail
+#!/usr/bin/env nix-shell
+#!nix-shell ${file} -i ${interpreter}
 
+set -eu
 ${script}
    `
-    writeFileSync(nixWrapperPath, nixWrapper, {mode: 0o755})
     writeFileSync(scriptPath, wrappedScript, {mode: 0o755})
 
-    execFileSync(nixWrapperPath, {
+    execFileSync(scriptPath, {
       stdio: 'inherit',
-      shell: 'bash'
+      shell: false
     })
   } catch (error) {
     core.error(`Error ${error}, action may still succeed though`)

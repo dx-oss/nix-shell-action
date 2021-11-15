@@ -1,15 +1,15 @@
 name: 'Nix Shell'
 description: 'Run any command you like in a deterministic nix shell on Linux and macOS'
-author: '@workflow'
+author: '@workflow and @ZenithalHourlyRate'
 inputs:
   interpreter:
     required: true
     description: 'Interpreter to use in the nix shell shebang'
     default: 'bash'
-  packages:
+  file:
     required: true
-    description: 'Comma separated list of packages that are to be available in your shell'
-    default: 'bash'
+    description: 'nix shell file'
+    default: 'shell.nix'
   script:
     required: true
     description: 'The actual script to execute in the shell'

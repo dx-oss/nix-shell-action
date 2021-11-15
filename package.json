@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/workflow/nix-shell-action.git"
+    "url": "git+https://github.com/ZenithalHourlyRate/nix-shell-action.git"
   },
   "keywords": [
     "actions",

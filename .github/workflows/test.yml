@@ -27,24 +27,8 @@ jobs:
         uses: cachix/install-nix-action@v14.1
         with:
           nix_path: nixpkgs=channel:nixos-unstable
-      - name: Test Basic Bash Shell
+      - name: Test
         uses: ./
         with:
           script: |
-            echo "test!"
-      - name: Test Bash Shell with Packages
-        uses: ./
-        with:
-          packages: hello,docker
-          script: |
-            hello
-            command -v docker
-      - name: Test Bash Shell with Enviroment
-        uses: ./
-        env:
-          FUTURE: now
-          ANSWER: 42
-        with:
-          script: |
-            echo The future is $FUTURE
-            [[ -z "${ANSWER}" ]] && exit 1 || exit 0
+            node --version
