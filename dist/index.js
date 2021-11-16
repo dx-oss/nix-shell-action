@@ -28,6 +28,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
+const process_1 = __webpack_require__(765);
 const child_process_1 = __webpack_require__(129);
 const fs_1 = __webpack_require__(747);
 function run() {
@@ -36,17 +37,17 @@ function run() {
         const file = core.getInput('file');
         const script = core.getInput('script');
         const scriptPath = `${__dirname}/script.sh`;
+        const nixFilePath = `${process_1.cwd()}/${file}`;
         const wrappedScript = `
 #!/usr/bin/env nix-shell
-#!nix-shell ${file} -i ${interpreter}
+#!nix-shell ${nixFilePath} -i ${interpreter}
 
 set -eu
 ${script}
    `;
         fs_1.writeFileSync(scriptPath, wrappedScript, { mode: 0o755 });
-        child_process_1.execFileSync(scriptPath, {
-            stdio: 'inherit',
-            shell: false
+        child_process_1.execSync(`nix-shell ${scriptPath}`, {
+            stdio: 'inherit'
         });
     }
     catch (error) {
@@ -473,6 +474,13 @@ module.exports = require("os");
 /***/ ((module) => {
 
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 765:
+/***/ ((module) => {
+
+module.exports = require("process");
 
 /***/ })
 

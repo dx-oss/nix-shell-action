@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
-import {execFileSync} from 'child_process'
+import {cwd} from 'process'
+import {execSync} from 'child_process'
 import {writeFileSync} from 'fs'
 
 function run(): void {
@@ -8,19 +9,19 @@ function run(): void {
     const file: string = core.getInput('file')
     const script: string = core.getInput('script')
     const scriptPath = `${__dirname}/script.sh`
+    const nixFilePath = `${cwd()}/${file}`
 
     const wrappedScript = `
 #!/usr/bin/env nix-shell
-#!nix-shell ${file} -i ${interpreter}
+#!nix-shell ${nixFilePath} -i ${interpreter}
 
 set -eu
 ${script}
    `
     writeFileSync(scriptPath, wrappedScript, {mode: 0o755})
 
-    execFileSync(scriptPath, {
-      stdio: 'inherit',
-      shell: false
+    execSync(`nix-shell ${scriptPath}`, {
+      stdio: 'inherit'
     })
   } catch (error) {
     core.error(`Error ${error}, action may still succeed though`)
