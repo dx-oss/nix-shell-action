@@ -12,7 +12,7 @@ Create `shell.nix` in your repo, for example
 { pkgs ? import <nixpkgs> {} }:
   pkgs.mkShell {
     # nativeBuildInputs is usually what you want -- tools you need to run
-    nativeBuildInputs = [ pkgs.nodejs ];
+    nativeBuildInputs = with pkgs; [ which nodejs python39 perl ];
 }
 ```
 
@@ -28,13 +28,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v10
+    - uses: cachix/install-nix-action@v14.1
       with:
         nix_path: nixpkgs=channel:nixos-unstable
-    - uses: ZenithalHourlyRate/nix-shell-action@v1
+    - uses: ZenithalHourlyRate/nix-shell-action@v3
       with:
         script: |
-          node --version
+          which node
+    - uses: ZenithalHourlyRate/nix-shell-action@v3
+      with:
+        interpreter: python3
+        script: |
+          print("hello world from python")
+    - uses: ZenithalHourlyRate/nix-shell-action@v3
+      with:
+        interpreter: perl
+        file: shell.nix
+        script: |
+          use warnings;
+          print("Hello, World! from perl\n");
 ```
 
 For now, this action implicitly depends on having [Nix] installed and set up correctly, such as through the [install-nix-action] demonstrated in the examples above.
