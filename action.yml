@@ -1,5 +1,5 @@
-name: 'Nix Shell'
-description: 'Run any command you like in a deterministic nix shell on Linux and macOS'
+name: 'nix-shell(1)'
+description: 'nix-shell instead of nix run'
 author: '@workflow and @ZenithalHourlyRate'
 inputs:
   interpreter:
