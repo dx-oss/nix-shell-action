@@ -42,7 +42,6 @@ function run() {
 #!/usr/bin/env nix-shell
 #!nix-shell ${nixFilePath} -i ${interpreter}
 
-set -eu
 ${script}
    `;
         fs_1.writeFileSync(scriptPath, wrappedScript, { mode: 0o755 });

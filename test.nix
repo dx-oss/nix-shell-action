@@ -4,5 +4,5 @@
 pkgs.mkShell {
   name = "install-nix-action-test-shell";
 
-  buildInputs = [ pkgs.mill ];
+  buildInputs = with pkgs; [ which mill python39 perl ];
 }
