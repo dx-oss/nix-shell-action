@@ -11,15 +11,13 @@ function run(): void {
     const scriptPath = `${__dirname}/script.sh`
     const nixFilePath = `${cwd()}/${file}`
 
-    const wrappedScript = `
-#!/usr/bin/env nix-shell
-#!nix-shell ${nixFilePath} -i ${interpreter}
+    writeFileSync(
+      scriptPath,
+      [`#!/usr/bin/env ${interpreter}`, script].join('\n'),
+      {mode: 0o755}
+    )
 
-${script}
-   `
-    writeFileSync(scriptPath, wrappedScript, {mode: 0o755})
-
-    execSync(`nix-shell ${scriptPath}`, {
+    execSync(`nix-shell ${nixFilePath} --run ${scriptPath}`, {
       stdio: 'inherit'
     })
   } catch (error) {
