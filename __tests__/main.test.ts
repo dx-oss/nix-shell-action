@@ -1,6 +1,7 @@
 import * as process from 'process'
 import * as cp from 'child_process'
 import * as path from 'path'
+import * as fs from 'fs'
 // import {expect, test} from '@jest/globals'
 
 // shows how the runner will run a javascript action with env / stdout protocol
@@ -45,4 +46,8 @@ test('test testshell multiline', () => {
   expect(
     cp.execFileSync(np, [ip], options).toString().split('2.12.1-6fe9').length
   ).toBe(7)
+})
+afterAll(() => {
+  const dir = path.join(__dirname, '..', 'dist', 'script.sh')
+  fs.unlinkSync(dir)
 })
