@@ -32,16 +32,16 @@ jobs:
     - uses: cachix/install-nix-action@v14.1
       with:
         nix_path: nixpkgs=channel:nixos-unstable
-    - uses: dx-oss/nix-shell-action@v9
+    - uses: dx-oss/nix-shell-action@v10
       with:
         script: |
           which node
-    - uses: dx-oss/nix-shell-action@v9
+    - uses: dx-oss/nix-shell-action@v10
       with:
         interpreter: python3
         script: |
           print("hello world from python")
-    - uses: dx-oss/nix-shell-action@v9
+    - uses: dx-oss/nix-shell-action@v10
       with:
         interpreter: perl
         file: shell.nix
