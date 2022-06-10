@@ -1,6 +1,6 @@
-name: 'nix-shell(1)'
+name: 'nix-shell(2)'
 description: 'nix-shell instead of nix run'
-author: '@workflow and @ZenithalHourlyRate'
+author: '@workflow and @ZenithalHourlyRate and @dx-oss'
 inputs:
   interpreter:
     required: true
