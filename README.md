@@ -56,7 +56,7 @@ See also [cachix-action](https://github.com/cachix/cachix-action) for a simple b
 
 ## Options `with: ...`
 
-- `interpreter`:  Interpreter to use in the nix shell shebang, defaults to `bash`. (This is passed to `nix-shell -i`)
+- `interpreter`:  Interpreter to use in the script, defaults to `bash`. 
 
 - `file`: nix-shell file, Defaults to `shell.nix`.
 
