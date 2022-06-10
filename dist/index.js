@@ -40,9 +40,9 @@ function run() {
         const interpreter = core.getInput('interpreter');
         const file = core.getInput('file');
         const script = core.getInput('script');
-        const scriptPath = __webpack_require__.ab + "script.sh";
+        const scriptPath = `${__dirname}/script.sh`;
         const nixFilePath = `${(0, process_1.cwd)()}/${file}`;
-        (0, fs_1.writeFileSync)(__webpack_require__.ab + "script.sh", [`#!/usr/bin/env ${interpreter}`, script].join('\n'), { mode: 0o755 });
+        (0, fs_1.writeFileSync)(scriptPath, [`#!/usr/bin/env ${interpreter}`, script].join('\n'), { mode: 0o755 });
         (0, child_process_1.execSync)(`nix-shell ${nixFilePath} --run ${scriptPath}`, {
             stdio: 'inherit'
         });
