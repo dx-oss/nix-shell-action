@@ -17,5 +17,5 @@ branding:
   color: 'blue'
   icon: 'chevron-right'
 runs:
-  using: 'node12'
-  main: 'lib/main.js'
+  using: 'node16'
+  main: 'dist/main.js'
