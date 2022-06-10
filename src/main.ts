@@ -22,7 +22,7 @@ function run(): void {
     })
   } catch (error) {
     core.error(`Error ${error}, action may still succeed though`)
-    core.setFailed(error.message)
+    core.setFailed((error as Error).message)
   }
 }
 

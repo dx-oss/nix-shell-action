@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -29,9 +33,9 @@ function run() {
         const file = core.getInput('file');
         const script = core.getInput('script');
         const scriptPath = `${__dirname}/script.sh`;
-        const nixFilePath = `${process_1.cwd()}/${file}`;
-        fs_1.writeFileSync(scriptPath, [`#!/usr/bin/env ${interpreter}`, script].join('\n'), { mode: 0o755 });
-        child_process_1.execSync(`nix-shell ${nixFilePath} --run ${scriptPath}`, {
+        const nixFilePath = `${(0, process_1.cwd)()}/${file}`;
+        (0, fs_1.writeFileSync)(scriptPath, [`#!/usr/bin/env ${interpreter}`, script].join('\n'), { mode: 0o755 });
+        (0, child_process_1.execSync)(`nix-shell ${nixFilePath} --run ${scriptPath}`, {
             stdio: 'inherit'
         });
     }
