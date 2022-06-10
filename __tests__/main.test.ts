@@ -9,7 +9,7 @@ test('test testshell.nix has wanted version of hello', () => {
   process.env['INPUT_FILE'] = 'testshell.nix'
   process.env['INPUT_SCRIPT'] = `hello --version`
   const np = process.execPath
-  const ip = path.join(__dirname, '..', 'dist', 'main.js')
+  const ip = path.join(__dirname, '..', 'dist', 'index.js')
   const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
@@ -20,7 +20,7 @@ test('test testshell that we are IN_NIX_SHELL', () => {
   process.env['INPUT_FILE'] = 'testshell.nix'
   process.env['INPUT_SCRIPT'] = `echo $IN_NIX_SHELL`
   const np = process.execPath
-  const ip = path.join(__dirname, '..', 'dist', 'main.js')
+  const ip = path.join(__dirname, '..', 'dist', 'index.js')
   const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
@@ -38,7 +38,7 @@ test('test testshell multiline', () => {
   hello --version
   `
   const np = process.execPath
-  const ip = path.join(__dirname, '..', 'dist', 'main.js')
+  const ip = path.join(__dirname, '..', 'dist', 'index.js')
   const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
