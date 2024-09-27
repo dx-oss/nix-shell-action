@@ -8,6 +8,7 @@ function run(): void {
     const interpreter: string = core.getInput('interpreter')
     const file: string = core.getInput('file')
     const script: string = core.getInput('script')
+    const options: string = core.getInput('options')
     const scriptPath = `${__dirname}/script.sh`
     const nixFilePath = `${cwd()}/${file}`
 
@@ -17,7 +18,7 @@ function run(): void {
       {mode: 0o755}
     )
 
-    execSync(`nix-shell ${nixFilePath} --run ${scriptPath}`, {
+    execSync(`nix-shell --run ${scriptPath} ${options} ${nixFilePath}`, {
       stdio: 'inherit'
     })
   } catch (error) {

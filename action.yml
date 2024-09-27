@@ -13,9 +13,13 @@ inputs:
   script:
     required: true
     description: 'The actual script to execute in the shell'
+  options:
+    required: true
+    description: 'Other options to pass along to the `nix-shell` command'
+    default: ''
 branding:
   color: 'blue'
   icon: 'chevron-right'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
