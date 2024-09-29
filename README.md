@@ -59,10 +59,6 @@ This action depends on having [Nix] installed and set up correctly, such as thro
 
 ---
 
-## Hacking
-
-See https://github.com/actions/typescript-action
-
 [nix]: https://nixos.org/nix/
 [install-nix-action]: https://github.com/marketplace/actions/install-nix
 [nix-quick-install-action]: https://github.com/marketplace/actions/nix-quick-install
