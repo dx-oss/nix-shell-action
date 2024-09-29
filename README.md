@@ -9,7 +9,14 @@ Run any command you like in a deterministic [Nix](https://nixos.org/nix/) shell 
 Create `shell.nix` in your repo, for example
 
 ```nix
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import
+    (builtins.fetchTarball {
+      name = "nixpkgs-unstable-2024-09-27";
+      url = "https://github.com/nixos/nixpkgs/archive/28b5b8af91ffd2623e995e20aee56510db49001a.tar.gz";
+      sha256 = "09zhy7bj0bd72r8dqpbrnpgapfkg5h91samrv1v8j0qxvv5kgv6n";
+    })
+    { }
+}:
   pkgs.mkShell {
     # nativeBuildInputs is usually what you want -- tools you need to run
     nativeBuildInputs = with pkgs; [ which nodejs python39 perl ];
