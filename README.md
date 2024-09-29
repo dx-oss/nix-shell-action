@@ -22,33 +22,22 @@ Create `.github/workflows/test.yml` in your repo with the following contents:
 ```yaml
 name: 'Test'
 on:
-  pull_request:
-  push:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: cachix/install-nix-action@v14.1
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: dx-oss/nix-shell-action@v11
-        with:
-          script: |
-            which node
-      - uses: dx-oss/nix-shell-action@v11
-        with:
-          interpreter: python3
-          options: --attr x
-          script: |
-            print("hello world from python")
-      - uses: dx-oss/nix-shell-action@v11
-        with:
-          interpreter: perl
-          file: shell.nix
-          script: |
-            use warnings;
-            print("Hello, World! from perl\n");
+    tests:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: nixbuild/nix-quick-install-action@v27
+            - uses: dx-oss/nix-shell-action@v12
+              env:
+                  NIX_BUILD_SHELL: bash # if using nix-quick-install-action, and not using flakes, you need to specify NIX_BUILD_SHELL
+              with:
+                  file: shell.nix
+                  script: which node
 ```
 
 For now, this action implicitly depends on having [Nix] installed and set up correctly, such as through the [install-nix-action] demonstrated in the examples above.
