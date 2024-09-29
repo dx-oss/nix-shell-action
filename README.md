@@ -1,6 +1,5 @@
 # nix-shell-action
 
-[![Check dist/](https://github.com/dx-oss/nix-shell-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/dx-oss/nix-shell-action/actions/workflows/check-dist.yml)
 [![build-test](https://github.com/dx-oss/nix-shell-action/actions/workflows/test.yml/badge.svg)](https://github.com/dx-oss/nix-shell-action/actions/workflows/test.yml)
 
 Run any command you like in a deterministic [Nix](https://nixos.org/nix/) shell on Linux and macOS.
